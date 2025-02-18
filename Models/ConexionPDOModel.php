@@ -3,7 +3,7 @@
         private static $server = 'localhost';
         private static $username = 'root';
         private static $pass = '';
-        private static $db = 'ies_bd';
+        private static $db = 'agenda';
         private static $conexion = null;
         
         public static function connect() {

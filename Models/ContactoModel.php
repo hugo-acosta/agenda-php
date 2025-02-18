@@ -1,5 +1,5 @@
 <?php 
-    require_once __DIR__ . 'ConexionPDOModel.php';
+    require_once __DIR__ . '/ConexionPDOModel.php';
 
     class ContactoModel {
         private $conexion;
@@ -8,10 +8,24 @@
             $this->conexion = ConexionPDOModel::connect();
         }
 
+        public function listarContactos($arrayContactos) {
+            # TODO Listado limpio
+        }
+
         public function obtenerContactos() {
-            $stmt = $this->conexion->query("SELECT * FROM contactos");
-            $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $resultados;
+            try {
+                $stmt = $this->conexion->query("SELECT * FROM contactos");
+                $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                
+                if (!$resultados) {
+                    echo "<b>La agenda está vacía</b> <br>";
+                } else {
+                    return $resultados;
+                }
+
+            } catch (Exception $ex) {
+                echo "ERROR: $ex";
+            }
         }
 
         public function añadirContacto($id_contacto, $nombre, $email, $tlf, $direccion) {

@@ -1,6 +1,9 @@
 <?php 
+    require_once __DIR__ . '/../Models/ContactoModel.php';
 
-    require_once __DIR__ . ''; 
+    $prueba = new ContactoModel();
+    $contactos = $prueba->obtenerContactos();
+    $prueba->listarContactos($contactos);
 
 ?> 
 <!DOCTYPE html>
@@ -11,9 +14,8 @@
     <title>Document</title>
 </head>
 <body>
-    <input type="button" value="">
-    <a href="">AÑADIR</a>
-    <a href="">EDITAR</a>
-    <a href="">BORRAR</a>
+    <input type="button" value="AÑADIR">
+    <input type="button" value="MODIFICAR">
+    <input type="button" value="BORRAR">
 </body>
 </html>
