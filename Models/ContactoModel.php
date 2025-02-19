@@ -28,16 +28,40 @@
             }
         }
 
-        public function añadirContacto($id_contacto, $nombre, $email, $tlf, $direccion) {
-            $stmt = $this->conexion->prepare("INSERT INTO contactos (id_contacto, nombre, email, tlf, direccion), VALUES (?,?,?,?,?)");
+        public function añadirContacto($nombre, $email, $tlf, $direccion) {
+            $stmt = $this->conexion->prepare("INSERT INTO contactos (nombre, email, tlf, direccion) VALUES (:nombre, :email, :telefono, :direccion)");
             
-            $stmt->bindParam(1, $id_contacto);
-            $stmt->bindParam(2, $nombre);
-            $stmt->bindParam(3, $email);
-            $stmt->bindParam(4, $tlf);
-            $stmt->bindParam(5, $direccion);
+            $stmt->bindParam(':nombre', $nombre);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':telefono', $tlf);
+            $stmt->bindParam(':direccion', $direccion);
 
             $stmt->execute();
+        }
+
+        public function modificarContacto($id_contacto, $arrayDatosAsoc) {
+            // LA INFORMACIÓN DEL ARRAY SE DISPONE ASÍ -> [nombre -> '...',
+            //                                              email -> '...',
+            //                                              tlf -> '...',
+            //                                              direccion -> '...']
+            // SI UNO DE LOS CAMPOS ESTÁ VACIO SIGNIFICA QUE NO SE MODIFICA
+            
+            try {
+                $this->conexion->beginTransaction();
+
+                foreach ($arrayDatosAsoc as $campo => $dato) {
+                    if ($dato != '') {
+                        $stmt = $this->conexion->prepare("UPDATE contactos SET $campo = ? WHERE id_contacto = ?");
+                        $stmt->execute([$dato, $id_contacto]);
+                    }   
+                }
+
+                $this->conexion->commit();
+        
+            } catch (Exception $ex) {
+                $this->conexion->rollBack();
+                echo "<br>Error en la transaccion. Rollback realizado" . $ex->getMessage() . "<br>";
+            }
         }
     }
 ?>

@@ -1,9 +1,7 @@
 <?php 
-    require_once __DIR__ . '/../Models/ContactoModel.php';
+    require_once __DIR__ . '/../Controllers/ContactoController.php';
 
-    $prueba = new ContactoModel();
-    $contactos = $prueba->obtenerContactos();
-    $prueba->listarContactos($contactos);
+    $controlador = new ContactoController(); 
 
 ?> 
 <!DOCTYPE html>
@@ -14,6 +12,7 @@
     <title>Document</title>
 </head>
 <body>
+    <form action="post"></form>
     <input type="button" value="AÑADIR">
     <input type="button" value="MODIFICAR">
     <input type="button" value="BORRAR">
