@@ -10,7 +10,6 @@
             if (self::$conexion == null) {
                 try {
                     $conexion = new PDO("mysql:host=" . self::$server . ";dbname=" . self::$db . ";charset=utf8", self::$username, self::$pass);
-                    echo "Conexión realizada con éxito.<br>";    
                 } catch (Exception $ex) {
                     echo "Se ha producido un error -> " . $ex->getMessage() . ' <br>';    
                 }

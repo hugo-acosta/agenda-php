@@ -1,8 +1,5 @@
 <?php 
     require_once __DIR__ . '/../Controllers/ContactoController.php';
-
-    $controlador = new ContactoController(); 
-
 ?> 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,11 +7,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        table, tbody {
+            border: solid;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <form action="post"></form>
-    <input type="button" value="AÑADIR">
-    <input type="button" value="MODIFICAR">
-    <input type="button" value="BORRAR">
+    <?php 
+        $controlador = new ContactoController(); 
+
+        $contactos = $controlador->obtenerContactos();
+        $controlador->listarContactos($contactos);
+    ?>
+    <a href="./Views/AñadirContactoView.php">Añadir Contacto</a>
+    <br>
+    <a href="./Views/ModificarContactoView.php">Modificar Contacto</a>
+    <br>
+    <a href="./Views/EliminarContactoView.php">Eliminar Contacto</a>
 </body>
 </html>

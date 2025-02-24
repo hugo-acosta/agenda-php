@@ -8,9 +8,6 @@
             $this->conexion = ConexionPDOModel::connect();
         }
 
-        public function listarContactos($arrayContactos) {
-            # TODO Listado limpio
-        }
 
         public function obtenerContactos() {
             try {
