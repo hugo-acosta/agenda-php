@@ -36,6 +36,20 @@
             $stmt->execute();
         }
 
+        public function eliminarContacto($id_contacto) {
+            try {
+                $this->conexion->beginTransaction();
+                
+                $stmt = $this->conexion->prepare("DELETE from contactos WHERE id_contacto = :id;");
+                $stmt->execute(['id' => $id_contacto]);
+
+                $this->conexion->commit();
+            } catch (Exception $ex) {
+                $this->conexion->rollBack();
+                echo "<br>Error en la transaccion. Rollback realizado" . $ex->getMessage() . "<br>";
+            }
+        }
+
         public function modificarContacto($id_contacto, $arrayDatosAsoc) {
             // LA INFORMACIÓN DEL ARRAY SE DISPONE ASÍ -> [nombre -> '...',
             //                                              email -> '...',

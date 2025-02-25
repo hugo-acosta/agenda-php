@@ -26,7 +26,12 @@
     <?php 
         if ($_POST) {
             if ($contactos['id_contacto'].isset($_POST['id'])){
-                
+                $id = $_POST['id'];
+                $controlador->eliminarContacto($id);
+
+                header("Location: ../index.php");
+            } else {
+                echo "<b>ID no encontrada en la lista de contactos. Por favor, inténtelo de nuevo.</b>";
             }
         }
     ?>

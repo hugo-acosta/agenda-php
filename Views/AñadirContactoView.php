@@ -45,7 +45,7 @@
 
             header("Location: ../index.php");
 
-
+            
         }
     ?>
 </body>
